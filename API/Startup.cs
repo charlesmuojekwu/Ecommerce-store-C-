@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -38,11 +39,13 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
             });
 
-
+            ///Added
             services.AddDbContext<StoreContext>(x =>
-                x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+                x.UseSqlite(_config.GetConnectionString("DefaultConnection"))); /// for database connection
 
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>(); /// for dependency injection
+            services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>))); //generic repository
+            services.AddAutoMapper(typeof(MappingProfiles)); ///auto mapper
 
 
         }
@@ -60,6 +63,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
