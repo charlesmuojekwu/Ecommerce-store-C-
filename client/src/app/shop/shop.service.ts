@@ -5,6 +5,7 @@ import { Ipagination } from '../models/pagination';
 import { IType } from '../models/productTypes';
 import { map } from 'rxjs/operators';
 import { shopParams } from '../models/shopParams';
+import { Iproduct } from '../models/product';
 
 
 
@@ -42,6 +43,10 @@ export class ShopService {
           return response.body
         })
       )
+  }
+
+  getProduct(id: number) {
+    return this.http.get<Iproduct>(this.baseUrl + 'products/' + id )
   }
 
   getBrands(){
