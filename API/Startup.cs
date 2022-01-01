@@ -1,23 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Errors;
 using API.Extentions;
-using API.Helpers;
 using API.Middleware;
-using Core.Interfaces;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace API
 {
@@ -44,6 +29,12 @@ namespace API
 
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection"))); /// for database connection
+
+            services.AddSingleton<IConnectionMultiplexer>(c => {    /// for redis in memory data storage
+                var configuration  = ConfigurationOptions.Parse(_config
+                    .GetConnectionString("Redis"),true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
 
             services.AddApplicationServices(); /// file extention for other services
 
@@ -89,4 +80,5 @@ namespace API
             });
         }
     }
+
 }

@@ -15,7 +15,11 @@ namespace API.Extentions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>(); /// for dependency injection
+
+            services.AddScoped<IBasketRepository, BasketRepository>();  /// basket data with redis
+
             services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>))); //generic repository
+
             services.AddAutoMapper(typeof(MappingProfiles)); ///auto mapper
 
             services.Configure<ApiBehaviorOptions>(options =>  /// overide API response error behaviour
