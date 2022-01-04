@@ -21,7 +21,7 @@ namespace API.Errors
         {
             return statusCode switch
             {
-                400 => "A Bad request, you have made",
+                400 => "A Bad request, Made a badrequest",
                 401 => "You are not, Authorized",
                 404 => "Resource Not found",
                 500 => "Server error",

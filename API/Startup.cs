@@ -1,8 +1,10 @@
 using API.Extentions;
 using API.Middleware;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
+
 
 namespace API
 {
@@ -30,6 +32,11 @@ namespace API
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection"))); /// for database connection
 
+            services.AddDbContext<AppIdentityDbContext>(x =>
+            {
+                x.UseSqlite(_config.GetConnectionString("IdentityConnection"));
+            });
+
             services.AddSingleton<IConnectionMultiplexer>(c => {    /// for redis in memory data storage
                 var configuration  = ConfigurationOptions.Parse(_config
                     .GetConnectionString("Redis"),true);
@@ -37,6 +44,7 @@ namespace API
             });
 
             services.AddApplicationServices(); /// file extention for other services
+            services.AddIdentityServices(_config); /// file extention identity manager service
 
             services.AddCors(opt => 
             {
@@ -72,6 +80,7 @@ namespace API
 
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -6,6 +6,7 @@ using API.Errors;
 using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Extentions
@@ -14,6 +15,8 @@ namespace API.Extentions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
+            
             services.AddScoped<IProductRepository, ProductRepository>(); /// for dependency injection
 
             services.AddScoped<IBasketRepository, BasketRepository>();  /// basket data with redis
