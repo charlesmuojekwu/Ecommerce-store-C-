@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center mt-5">
+
+    <div class="col-3">
+
+        <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-4">
+              <img class="mb-4" src="../../../assets/images/logo.png" alt="" width="72" height="72">
+              <h1 class="h3 mb-3 font-weight-normal">Account Login</h1>
+            </div>
+        
+            <app-text-inputs formControlName="email" [label]="'Email Address'" ></app-text-inputs>
+            <app-text-inputs formControlName="password" [label]="'password'" [type]="'password'"></app-text-inputs>
+        
+        
+            <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted text-center">© 2022</p>
+          </form>
+
+    </div>
+
+    <!-- <div class="col-4">
+      <p>Form status {{loginForm.status}}</p>
+      <p>Email status {{loginForm.get('email').status}}</p>
+      <p>Email Dirty {{loginForm.get('email').dirty}}</p>
+      <p>Email Touched {{loginForm.get('email').touched}}</p>
+      <pre>  {{loginForm.value | json }} </pre>
+    </div> -->
+</div>
+

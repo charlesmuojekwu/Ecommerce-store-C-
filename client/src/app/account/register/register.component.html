@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center mt-5">
+
+    <div class="col-3">
+
+        <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-4">
+              <img class="mb-4" src="../../../assets/images/logo.png" alt="" width="72" height="72">
+              <h1 class="h3 mb-3 font-weight-normal">Register Account</h1>
+            </div>
+        
+            <app-text-inputs formControlName="displayName" [label]="'Display Name'" ></app-text-inputs>
+            <app-text-inputs formControlName="email" [label]="'Email Address'" ></app-text-inputs>
+            <app-text-inputs formControlName="password" [label]="'password'" [type]="'password'"></app-text-inputs>
+
+            <ul class="text-danger list-unstyled" *ngIf="errors">
+              <li *ngFor="let error of errors">
+                  {{error}}
+              </li>
+            </ul>
+        
+        
+            <button  class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            <p class="mt-5 mb-3 text-muted text-center">© 2022</p>
+          </form>
+
+    </div>
+
+</div>
+
