@@ -17,6 +17,10 @@ namespace API.Extentions
         {
             services.AddScoped<ITokenService, TokenService>();
             
+            services.AddScoped<IOrderService, OrderService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); /// Unit of work [for tracking  entity/repository changes]
+            
             services.AddScoped<IProductRepository, ProductRepository>(); /// for dependency injection
 
             services.AddScoped<IBasketRepository, BasketRepository>();  /// basket data with redis
